@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kong Sovanmonisokha Botr — Cybersecurity</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f2eb;
+      --accent: #c8f03d;
+      --muted: #3a3a3a;
+      --border: #222;
+      --card-bg: #111;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+      opacity: 0.5;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: row;
+      padding-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3.5rem 5rem 3.5rem;
+      position: relative;
+      z-index: 2;
+      flex: 0 0 52%;
+      background: linear-gradient(to right, var(--black) 80%, transparent 100%);
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: rgba(245, 242, 235, 0.6);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--white);
+      color: var(--white);
+      transition: all 0.25s;
+      cursor: none;
+    }
+
+    .btn:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--black);
+    }
+
+    .btn-accent:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .hero-stats-inline {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      border: 1px solid var(--border);
+    }
+
+    .hero-stats-inline .stat {
+      border-right: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      flex: 1;
+    }
+
+    .hero-stats-inline .stat:last-child {
+      border-right: none;
+    }
+
+    .hero-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-photo-wrap {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to right, var(--black) 0%, transparent 40%);
+    }
+
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.3) 0%, transparent 30%, rgba(10, 10, 10, 0.5) 100%);
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(10%) contrast(1.05);
+      display: block;
+    }
+
+    .hero-accent-bar {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+      z-index: 3;
+    }
+
+    .stat {
+      background: var(--black);
+      padding: 1.25rem;
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245, 242, 235, 0.4);
+      margin-top: 0.25rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+    }
+
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: auto;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: rgba(245, 242, 235, 0.7);
+      margin-bottom: 1.25rem;
+      line-height: 1.9;
+    }
+
+    .contact-list {
+      list-style: none;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .contact-list li:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      min-width: 80px;
+    }
+
+    .contact-val {
+      color: rgba(245, 242, 235, 0.8);
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .skill-item {
+      background: var(--black);
+      padding: 1.25rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: rgba(245, 242, 235, 0.6);
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .skill-item:hover {
+      background: var(--card-bg);
+      color: var(--accent);
+    }
+
+    .skill-item::before {
+      content: '—';
+      color: var(--accent);
+      margin-right: 0.5rem;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--black);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .project-card:hover {
+      background: var(--card-bg);
+    }
+
+    .project-card:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .project-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-card p {
+      font-size: 0.85rem;
+      color: rgba(245, 242, 235, 0.55);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border);
+      color: rgba(245, 242, 235, 0.4);
+    }
+
+    /* Education & Experience */
+    .timeline {
+      position: relative;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .timeline-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      padding-top: 0.25rem;
+    }
+
+    .timeline-body h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-body .org {
+      font-size: 0.8rem;
+      color: rgba(245, 242, 235, 0.4);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .timeline-body p,
+    .timeline-body li {
+      font-size: 0.85rem;
+      color: rgba(245, 242, 235, 0.55);
+      line-height: 1.8;
+    }
+
+    .timeline-body ul {
+      padding-left: 1rem;
+    }
+
+    /* Language */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .lang-card {
+      background: var(--black);
+      padding: 2rem;
+    }
+
+    .lang-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .lang-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 0.75rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+    }
+
+    .dot.filled {
+      background: var(--accent);
+    }
+
+    /* Hobbies */
+    .hobbies-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .hobby {
+      background: var(--black);
+      padding: 1.25rem 2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: rgba(245, 242, 235, 0.3);
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .hobby:hover {
+      color: var(--accent);
+      background: var(--card-bg);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    .footer-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: rgba(245, 242, 235, 0.25);
+    }
+
+    /* Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .hero-right {
+        position: relative;
+        width: 100%;
+        height: 55vw;
+        min-height: 260px;
+      }
+
+      .hero-photo-wrap::before {
+        background: linear-gradient(to bottom, transparent 60%, var(--black) 100%);
+      }
+
+      .hero-accent-bar {
+        width: 100%;
+        height: 4px;
+        top: auto;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+
+      .hero-left {
+        flex: 1;
+        padding: 2rem 1.5rem;
+        background: var(--black);
+      }
+
+      .hero-stats-inline {
+        flex-wrap: wrap;
+      }
+
+      .hero-stats-inline .stat {
+        flex: 1 1 40%;
+        border-bottom: 1px solid var(--border);
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card:first-child {
+        grid-column: 1;
+      }
+
+      .lang-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <nav>
+    <div class="nav-logo">KSB</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-right">
+      <div class="hero-photo-wrap">
+        <img src="botr1.jpg" alt="Kong Sovanmonisokha Botr" class="hero-photo" onerror="this.style.display='none'">
+      </div>
+      <div class="hero-accent-bar"></div>
+    </div>
+    <div class="hero-left">
+      <div class="hero-tag">Cybersecurity Student</div>
+      <h1>Kong<br>Sovann<span>monisokha</span><br>Botr</h1>
+      <p class="hero-desc">Second-year Cybersecurity student at Cambodia Academy of Digital Technology. Passionate about
+        network security, ethical hacking, and building secure systems.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-accent">View Projects</a>
+        <a href="mailto:virakboth291@gmail.com" class="btn">Contact Me</a>
+      </div>
+      <div class="hero-stats-inline">
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2nd</div>
+          <div class="stat-label">Year</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Curiosity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header fade-up">
+      <span class="section-num">01</span>
+      <h2>About</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>Motivated second-year Cybersecurity student at Cambodia Academy of Digital Technology (CADT) with a strong
+          academic foundation in network security and fundamental cybersecurity principles.</p>
+        <p>Experienced in multiple programming languages and actively involved in volunteering. Seeking an internship to
+          apply hands-on skills in a real-world security environment.</p>
+        <p>I believe in continuous learning and building strong problem-solving skills — both technically and
+          personally.</p>
+      </div>
+      <ul class="contact-list fade-up" id="contact">
+        <li><span class="contact-key">Phone</span><span class="contact-val">070 888 978</span></li>
+        <li><span class="contact-key">Email</span><span class="contact-val">virakboth291@gmail.com</span></li>
+        <li><span class="contact-key">Address</span><span class="contact-val">Preakliep 6A road, Phnom Penh</span></li>
+        <li><span class="contact-key">Website</span><span class="contact-val">reallygreatsite.com</span></li>
+        <li><span class="contact-key">Goal</span><span class="contact-val">Cybersecurity Internship</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header fade-up">
+      <span class="section-num">02</span>
+      <h2>Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid fade-up">
+      <div class="skill-item">Web Design</div>
+      <div class="skill-item">Design Thinking</div>
+      <div class="skill-item">Kali Linux</div>
+      <div class="skill-item">Networking</div>
+      <div class="skill-item">Problem-Solving</div>
+      <div class="skill-item">Empathy</div>
+      <div class="skill-item">Teamwork</div>
+      <div class="skill-item">Strong Communication</div>
+      <div class="skill-item">Creative Thinking</div>
+      <div class="skill-item">Python</div>
+      <div class="skill-item">Arduino</div>
+      <div class="skill-item">Cisco Packet Tracer</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header fade-up">
+      <span class="section-num">03</span>
+      <h2>Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid fade-up">
+      <div class="project-card">
+        <div class="project-cat">Networking · Security</div>
+        <h3>Small Enterprise Network</h3>
+        <p>Designed a small enterprise network with VLAN segmentation, firewall rules, and VPN integration using Cisco
+          Packet Tracer. Configured inter-VLAN routing, DHCP services, and access control lists to simulate a real-world
+          business environment.</p>
+        <div class="project-tags">
+          <span class="tag">Cisco Packet Tracer</span>
+          <span class="tag">VLAN</span>
+          <span class="tag">ACL</span>
+          <span class="tag">Firewall</span>
+          <span class="tag">SSH / VPN</span>
+          <span class="tag">DHCP</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-cat">Electronics · Embedded</div>
+        <h3>Autonomous Robotic Car</h3>
+        <p>Built an autonomous robotic car with obstacle avoidance and line-following capabilities using Arduino and
+          infrared/ultrasonic sensors.</p>
+        <div class="project-tags">
+          <span class="tag">Arduino</span>
+          <span class="tag">Ultrasonic</span>
+          <span class="tag">IR Sensors</span>
+          <span class="tag">PWM Control</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-cat">Web Development</div>
+        <h3>Cyber Career Website</h3>
+        <p>Developed a responsive website on cybersecurity career pathways using HTML, CSS, and JavaScript.</p>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Responsive Design</span>
+        </div>
+      </div>
+      <div class="project-card" style="grid-column: unset;">
+        <div class="project-cat">Python · Security</div>
+        <h3>Encryption Tool</h3>
+        <p>Built a Python-based encryption tool to encrypt and decrypt data using cryptographic algorithms.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Cryptography</span>
+          <span class="tag">CLI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-header fade-up">
+      <span class="section-num">04</span>
+      <h2>Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-year">2024 — Present</div>
+        <div class="timeline-body">
+          <h3>Bachelor of Telecommunications and Networking</h3>
+          <div class="org">Cambodia Academy of Digital Technology (CADT)</div>
+          <p>Chinese Language Program, CAM-ASEAN</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023 — 2024</div>
+        <div class="timeline-body">
+          <h3>English Language Studies</h3>
+          <div class="org">Australian Centre for Education, Phnom Penh</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2021 — 2024</div>
+        <div class="timeline-body">
+          <h3>High School Diploma</h3>
+          <div class="org">Sisowath High School</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header fade-up">
+      <span class="section-num">05</span>
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-year">Volunteering</div>
+        <div class="timeline-body">
+          <h3>Community & Social Initiatives</h3>
+          <div class="org">Various Organizations</div>
+          <ul>
+            <li>RunForSmile — Raising Fund For War Refugees</li>
+            <li>4Rs Campaign — Improve Public Opinion on Using Plastic</li>
+            <li>8thMarch — Running Marathon to celebrate Women's Day</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGE -->
+  <section>
+    <div class="section-header fade-up">
+      <span class="section-num">06</span>
+      <h2>Languages</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="lang-grid fade-up">
+      <div class="lang-card">
+        <div class="lang-name">Khmer</div>
+        <div style="font-size:0.7rem;letter-spacing:0.1em;color:rgba(245,242,235,0.35);text-transform:uppercase;">Native
+        </div>
+        <div class="lang-dots">
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">English</div>
+        <div style="font-size:0.7rem;letter-spacing:0.1em;color:rgba(245,242,235,0.35);text-transform:uppercase;">
+          Proficient</div>
+        <div class="lang-dots">
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Chinese</div>
+        <div style="font-size:0.7rem;letter-spacing:0.1em;color:rgba(245,242,235,0.35);text-transform:uppercase;">
+          Intermediate</div>
+        <div class="lang-dots">
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot filled"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBBIES -->
+  <section>
+    <div class="section-header fade-up">
+      <span class="section-num">07</span>
+      <h2>Hobbies</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="hobbies-list fade-up">
+      <div class="hobby">Volleyball</div>
+      <div class="hobby">Football</div>
+      <div class="hobby">Badminton</div>
+      <div class="hobby">Swimming</div>
+      <div class="hobby">Gym</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">KSB — 2026</div>
+    <div class="footer-note">Kong Sovanmonisokha Botr · Cybersecurity · Phnom Penh</div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('ring');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+      }, 80);
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>
